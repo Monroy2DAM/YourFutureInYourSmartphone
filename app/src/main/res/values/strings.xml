@@ -8,4 +8,13 @@
     <string name="registrarse">Registrarse</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="buscar">Buscar</string>
+
+    <string name="login_titulo">Login. datos del interesado</string>
+    <string name="login_email">Email</string>
+    <string name="login_email_field">e-mail</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_password_field">password</string>
+    <string name="login_aceptar">Aceptar</string>
+
+
 </resources>
