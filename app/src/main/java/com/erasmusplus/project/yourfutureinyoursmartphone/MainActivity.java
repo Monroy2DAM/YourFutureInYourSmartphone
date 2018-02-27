@@ -13,7 +13,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String FICHERO_LOGIN = "login-status";
 
     Fragment fragment;
 
@@ -74,14 +81,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_registro) {
 
-        } else if (id == R.id.nav_inicio_sesion) {
+        } else
+            if (id == R.id.nav_inicio_sesion) {
+
             fragment = new Login();
             getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.area_pantalla,fragment).commit();
-        } else if (id == R.id.nav_buscar) {
 
+        } else
+            if (id == R.id.nav_buscar) {
+            try {
+
+                FileReader flujo = new FileReader(FICHERO_LOGIN);
+                BufferedReader filtro = new BufferedReader(flujo);
+                int estadoLogin = Integer.parseInt(filtro.readLine().trim());
+                filtro.close();
+                flujo.close();
+
+                if(estadoLogin == 1){
+                    // TODO Lanzar fragment de Búsqueda
+                }
+
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
