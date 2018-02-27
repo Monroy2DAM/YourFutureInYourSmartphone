@@ -1,4 +1,4 @@
-package com.example.keroseno.yourfutureinyoursmartphone;
+package com.erasmusplus.project.yourfutureinyoursmartphone;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
