@@ -27,7 +27,7 @@ public class Buscar extends Fragment {
     public static final String URL_CENTROS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_institution.php";
     public static final String URL_PROYECTOS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_project.php";
     public static final String URL_KTYPE = "http://practicascursodam.esy.es/yourfuture/gson/get_all_ktype.php";
-    public static final String URL_LTYPE = "http://practicascursodam.esy.es/yourfuture/gson/get_all_type.php";
+    public static final String URL_TYPE = "http://practicascursodam.esy.es/yourfuture/gson/get_all_type.php";
     public static final String URL_SOCIOS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_contact_person_busqueda.php";
 
     private Spinner spPais, spArea, spCentro, spProyecto;
@@ -150,18 +150,18 @@ public class Buscar extends Fragment {
     }
 
     private void cargarSpinnerLtype(){
-        cliente.get(this.getContext(), URL_KTYPE,new AsyncHttpResponseHandler() {
+        cliente.get(this.getContext(), URL_TYPE,new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String valorDevuelto = new String(responseBody);
 
                 Gson gson = new Gson();
-                Handler_TiposCentros typos = gson.fromJson(valorDevuelto, Handler_TiposCentros.class);
+                Handler_TiposCentros tipoCentros = gson.fromJson(valorDevuelto, Handler_TiposCentros.class);
 
-                List<Handler_TiposCentros.YfTYPEBean> listaTypos = typos.getYf_TYPE();
+                List<Handler_TiposCentros.YfTYPEBean> listaTipos = tipoCentros.getYf_TYPE();
 
                 ArrayAdapter<Handler_TiposCentros.YfTYPEBean> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaTypos);
+                        android.R.layout.simple_spinner_dropdown_item, listaTipos);
 
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
