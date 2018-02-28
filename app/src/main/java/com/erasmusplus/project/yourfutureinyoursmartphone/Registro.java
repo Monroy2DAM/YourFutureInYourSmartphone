@@ -23,7 +23,8 @@ public class Registro extends Fragment {
     // MÉTODOS SOBREESCRITOS
     //==============================================================================================
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View vista = inflater.inflate(R.layout.registro, container, false);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return vista;
     }
 }

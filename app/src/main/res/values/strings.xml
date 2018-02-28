@@ -8,7 +8,27 @@
     <string name="registrarse">Registrarse</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="buscar">Buscar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_titulo">Login. datos del interesado</string>
+    <string name="login_email">Email</string>
+    <string name="login_email_field">e-mail</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_password_field">password</string>
+    <string name="login_aceptar">Aceptar</string>
+    <string name="registro">Registro</string>
+    <string name="datos_centro_trabajo">Datos del centro de trabajo</string>
+    <string name="nombre">Nombre:</string>
+    <string name="direccion">Dirección:</string>
+    <string name="ciudad">Ciudad:</string>
+    <string name="pais">País:</string>
+    <string name="correo_electronico">Correo electrónico:</string>
+    <string name="tipo">Tipo:</string>
+    <string name="pic">PIC:</string>
+    <string name="datos_persona">Datos de la persona</string>
+    <string name="apellidos">Apellidos:</string>
+    <string name="contrasenha">Contraseña:</string>
+    <string name="repetir_contrasenha">Repite contraseña:</string>
+    <string name="area">Área:</string>
+    <string name="datos_proyecto">Datos del proyecto (opcional)</string>
+    <string name="condiciones">Acepto las condiciones.</string>
+    <string name="registrarme">REGISTRARME</string>
 </resources>
