@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -84,33 +86,57 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else
             if (id == R.id.nav_inicio_sesion) {
 
-            fragment = new Login();
-            getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.area_pantalla,fragment).commit();
+            mostrarLogin();
 
         } else
             if (id == R.id.nav_buscar) {
             try {
 
-                FileReader flujo = new FileReader(FICHERO_LOGIN);
+                FileReader flujo = new FileReader(this.getFilesDir() + "/" +FICHERO_LOGIN);
                 BufferedReader filtro = new BufferedReader(flujo);
                 int estadoLogin = Integer.parseInt(filtro.readLine().trim());
                 filtro.close();
                 flujo.close();
 
-                if(estadoLogin == 1){
-                    // TODO Lanzar fragment de Búsqueda
-                }
+                if(estadoLogin == 1)
+                    mostrarBusqueda();
 
             } catch (java.io.IOException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "Debe logearse para acceder a búsqueda", Toast.LENGTH_SHORT).show();
+                mostrarLogin();
             }
-        }
+        }else
+            if (id == R.id.nav_logout) {
+
+                File archivoLog = new File(this.getFilesDir() + "/" +FICHERO_LOGIN);
+                
+                if(archivoLog.exists()) {
+                    archivoLog.delete();
+                    Toast.makeText(this, "Se ha desconectado correctamente.", Toast.LENGTH_SHORT).show();
+                }else
+                    Toast.makeText(this, "Para deslogearse primero hay que logearse.", Toast.LENGTH_SHORT).show();
+
+                mostrarLogin();
+            }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void mostrarLogin(){
+        fragment = new Login();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.area_pantalla,fragment).commit();
+    }
+
+    private void mostrarBusqueda(){
+        fragment = new Buscar();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.area_pantalla, fragment).commit();
     }
 }
