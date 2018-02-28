@@ -18,6 +18,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -49,7 +50,7 @@ public class Login extends Fragment {
 
                 if (correo.isEmpty()) {
                     email.setError("Debe rellenar este campo");
-                }else {
+                } else {
                     if (password.isEmpty()) {
                         pass.setError("Debe rellenar este campo");
                     } else {
@@ -73,7 +74,7 @@ public class Login extends Fragment {
 
                                     if (res == 1) {
                                         try {
-                                            PrintWriter flujo = new PrintWriter(MainActivity.FICHERO_LOGIN);
+                                            PrintWriter flujo = new PrintWriter(new File(getActivity().getFilesDir(), MainActivity.FICHERO_LOGIN));
                                             BufferedWriter filtro = new BufferedWriter(flujo);
                                             filtro.write("1");
                                             filtro.close();

@@ -12,18 +12,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    //==============================================================================================
+    // CONSTANTES
+    //==============================================================================================
     public static final String FICHERO_LOGIN = "login-status";
 
+    //==============================================================================================
+    // VARIABLES
+    //==============================================================================================
     Fragment fragment;
+    FragmentManager gestorFragment;
+    FragmentTransaction transaccionFragment;
 
+    //==============================================================================================
+    // MÉTODOS SOBREESCRITOS
+    //==============================================================================================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -53,19 +67,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_settings) {
             return true;
         }*/
@@ -73,44 +82,92 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        int id;
+        File archivoLog;
 
+        id = item.getItemId(); // Se obtiene el ID de la opción seleccionada.
+
+        archivoLog = new File(this.getFilesDir() + "/" + FICHERO_LOGIN);
+
+        //==========================================================================================
+        // REGISTRO
+        //==========================================================================================
         if (id == R.id.nav_registro) {
 
-        } else
-            if (id == R.id.nav_inicio_sesion) {
+            if (archivoLog.exists()) {
+                Toast.makeText(this, "Para registrar un nuevo usuario primero debe deslogearse.", Toast.LENGTH_SHORT).show();
 
-            fragment = new Login();
-            getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.area_pantalla,fragment).commit();
+            } else {
+                mostrarRegistro();
+            }
 
-        } else
-            if (id == R.id.nav_buscar) {
+        //==========================================================================================
+        // INICIAR SESIÓN
+        //==========================================================================================
+        } else if (id == R.id.nav_inicio_sesion) {
+            mostrarLogin();
+
+        //==========================================================================================
+        // BUSCAR
+        //==========================================================================================
+        } else if (id == R.id.nav_buscar) {
             try {
 
-                FileReader flujo = new FileReader(FICHERO_LOGIN);
+                FileReader flujo = new FileReader(this.getFilesDir() + "/" + FICHERO_LOGIN);
                 BufferedReader filtro = new BufferedReader(flujo);
                 int estadoLogin = Integer.parseInt(filtro.readLine().trim());
                 filtro.close();
                 flujo.close();
 
-                if(estadoLogin == 1){
-                    // TODO Lanzar fragment de Búsqueda
+                if (estadoLogin == 1) {
+                    mostrarBusqueda();
                 }
 
             } catch (java.io.IOException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "Debe logearse para acceder a búsqueda", Toast.LENGTH_SHORT).show();
+                mostrarLogin();
             }
+        } else if (id == R.id.nav_logout) {
+
+            archivoLog = new File(this.getFilesDir() + "/" + FICHERO_LOGIN);
+
+            if (archivoLog.exists()) {
+                archivoLog.delete();
+                Toast.makeText(this, "Se ha desconectado correctamente.", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, "Para deslogearse primero hay que logearse.", Toast.LENGTH_SHORT).show();
+
+            mostrarLogin();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void mostrarRegistro() {
+        fragment = new Registro();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+    }
+
+    private void mostrarLogin() {
+        fragment = new Login();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+    }
+
+    private void mostrarBusqueda() {
+        fragment = new Buscar();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
     }
 }

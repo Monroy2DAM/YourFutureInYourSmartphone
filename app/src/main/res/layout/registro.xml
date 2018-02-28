@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:padding="16dp">
+
+        <TextView
+            android:paddingTop="60dp"
+            android:id="@+id/texto_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registro"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/texto_datos_centro_trabajo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_centro_trabajo"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:paddingTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_nombre_centro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_nombre_centro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/direccion"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_ciudad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ciudad"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_ciudad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_pais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombrePais"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_paises"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_correo_electronico_centro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/correo_electronico"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_correo_electronico_centro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_tipo_centro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_tipos_centros"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pic"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/texto_datos_persona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_persona"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:paddingTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_nombre_persona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_nombre_persona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_apellidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/apellidos"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_apellidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_correo_electronico_persona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/correo_electronico"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_correo_electronico_persona"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textEmailAddress"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_contrasenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contrasenha"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_contrasenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_repetir_contrasenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/repetir_contrasenha"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_repetir_constraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/area"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_areas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/texto_datos_proyecto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/datos_proyecto"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:paddingTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_nombre_proyecto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/campo_nombre_proyecto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/texto_tipo_proyecto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tipo"
+                android:paddingRight="5dp"
+                android:paddingEnd="5dp"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinner_tipos_proyectos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+            <CheckBox
+                android:id="@+id/casilla_condiciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/condiciones"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/boton_registro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/registrarme" />
+
+    </LinearLayout>
+</ScrollView>
