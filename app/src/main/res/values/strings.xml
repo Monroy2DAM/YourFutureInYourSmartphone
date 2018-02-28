@@ -8,6 +8,7 @@
     <string name="registrarse">Registrarse</string>
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="buscar">Buscar</string>
+    <string name="logout">Logout</string>
     <string name="login_titulo">Login. datos del interesado</string>
     <string name="login_email">Email</string>
     <string name="login_email_field">e-mail</string>
@@ -31,4 +32,10 @@
     <string name="datos_proyecto">Datos del proyecto (opcional)</string>
     <string name="condiciones">Acepto las condiciones.</string>
     <string name="registrarme">REGISTRARME</string>
+    <string name="buscar_titulo">Buscar colaboradores</string>
+    <string name="buscar_area">Área</string>
+    <string name="buscar_centro">Centro</string>
+    <string name="buscar_pais">País</string>
+    <string name="buscar_tipo_proyecto">Tipo de proyecto</string>
+    <string name="buscar_aceptar">Buscar</string>
 </resources>

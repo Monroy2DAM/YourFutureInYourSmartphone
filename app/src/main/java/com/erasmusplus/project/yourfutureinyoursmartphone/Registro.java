@@ -34,8 +34,6 @@ public class Registro extends Fragment {
     Gson gson;
     AsyncHttpClient cliente1, cliente2, cliente3;
 
-
-
     // URLs JSON.
     String urlPaises = "http://practicascursodam.esy.es/yourfuture/gson/get_all_country.php";
     String urlAreas = "http://practicascursodam.esy.es/yourfuture/gson/get_all_area.php";
@@ -49,29 +47,29 @@ public class Registro extends Fragment {
     String urlContactoEmail = "http://practicascursodam.esy.es/yourfuture/gson/get_contact_person_details_email.php";
     String urlTiposCentros = "http://practicascursodam.esy.es/yourfuture/gson/get_all_type.php";
 
-    Paises paises;
-    Paises.YfINSTITUTIONBean pais;
-    List<Paises.YfINSTITUTIONBean> listaPaises;
+    Handler_Paises paises;
+    Handler_Paises.YfINSTITUTIONBean pais;
+    List<Handler_Paises.YfINSTITUTIONBean> listaPaises;
 
-    Areas areas;
-    Areas.Area area;
-    List<Areas.Area> listaAreas;
+    Handler_Areas areas;
+    Handler_Areas.YfAREABean area;
+    List<Handler_Areas.YfAREABean> listaAreas;
 
-    Centros centros;
-    Centros.Centro centro;
-    List<Centros.Centro> listaCentros;
+    Handler_Centros centros;
+    Handler_Centros.YfINSTITUTIONBean centro;
+    List<Handler_Centros.YfINSTITUTIONBean> listaCentros;
 
     //Proyectos proyectos;
     //Proyectos.Proyecto proyecto;
     //List<Proyectos.Proyecto> listaProyectos;
 
-    TiposProyectos tiposProyectos;
-    TiposProyectos.TipoProyecto tipoProyecto;
-    List<TiposProyectos.TipoProyecto> listaTiposProyectos;
+    Handler_TiposProyectos tiposProyectos;
+    Handler_TiposProyectos.YfKTYPEBean tipoProyecto;
+    List<Handler_TiposProyectos.YfKTYPEBean> listaTiposProyectos;
 
-    TiposCentros tiposCentros;
-    TiposCentros.TipoCentro tipoCentro;
-    List<TiposCentros.TipoCentro> listaTiposCentros;
+    Handler_TiposCentros tiposCentros;
+    Handler_TiposCentros.YfTYPEBean tipoCentro;
+    List<Handler_TiposCentros.YfTYPEBean> listaTiposCentros;
 
     Personas personaContacto;
     Personas.Persona personaC;
@@ -158,7 +156,7 @@ public class Registro extends Fragment {
                         rp.put("STREET", campoDireccionCentro.getText().toString());
                         rp.put("CITY", campoCiudadCentro.getText().toString());
                         rp.put("COUNTRY", pais.getCOUNTRY().toString());
-                        rp.put("TYPE", tipoCentro.getIdTipoCentro());
+                        rp.put("TYPE", tipoCentro.getID());
                         // Enviamos los parametros al servidor
                         cliente2.post(urlRegistroCentro, rp, new JsonHttpResponseHandler() {
                             @Override
@@ -208,17 +206,17 @@ public class Registro extends Fragment {
                             // Iniciamos el objeto Gson
                             gson = new Gson();
                             // Recogemos los centros devueltos y el success
-                            centros = gson.fromJson(respuesta, Centros.class);
-                            int res = centros.getExito();
+                            centros = gson.fromJson(respuesta, Handler_Centros.class);
+                            int res = centros.getSuccess();
                             if (res == 1) {
                                 // Avisamos que se ha recogido bien el centro
                                 Toast.makeText(getContext(), "Centro recogido ok ", Toast.LENGTH_LONG).show();
                                 // Cogemos la lista de centros
-                                listaCentros = centros.getListaCentros();
+                                listaCentros = centros.getYf_INSTITUTION();
                                 // De la lista cogemos el primero
                                 centro = listaCentros.get(0);
                                 // Y recogemos el ide
-                                idInstitucion = centro.getIdCentro();
+                                idInstitucion = centro.getID();
                                 // Pasamos a crear la persona
                                 altaPersonaContacto();
                                 Toast.makeText(getContext(), idInstitucion, Toast.LENGTH_LONG);
@@ -241,7 +239,7 @@ public class Registro extends Fragment {
                 rp3.put("EMAIL", emailContacto);
                 rp3.put("NAME", campoNombrePersona.getText().toString());
                 rp3.put("LASTNAME", campoApellidosPersona.getText().toString());
-                rp3.put("AREA", area.getIdArea().toString());
+                rp3.put("AREA", area.getID().toString());
                 rp3.put("PASSWORD", campoClavePersona.getText().toString());
                 rp3.put("IDINST", idInstitucion);
                 // Iniciamos la creacion de la nueva persona en el servidor
@@ -315,7 +313,7 @@ public class Registro extends Fragment {
                 RequestParams rp5 = new RequestParams();
                 rp5.put("NAME", campoNombreProyecto.getText().toString());
                 rp5.put("IDCONTACT", idPersona);
-                rp5.put("KTYPE", tipoProyecto.getIdTipoProyecto().toString());
+                rp5.put("KTYPE", tipoProyecto.getID().toString());
                 // Realizamos el envido de datos al servidor para el alta
                 cliente2.post(urlRegistroProyecto,rp5, new JsonHttpResponseHandler(){
                     @Override
@@ -352,16 +350,16 @@ public class Registro extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String valorDevuelto = new String(responseBody);
                 gson = new Gson();
-                paises = gson.fromJson(valorDevuelto, Paises.class);
+                paises = gson.fromJson(valorDevuelto, Handler_Paises.class);
                 listaPaises = paises.getYf_INSTITUTION();
-                ArrayAdapter<Paises.YfINSTITUTIONBean> adapter = new ArrayAdapter<>(getActivity(),
+                ArrayAdapter<Handler_Paises.YfINSTITUTIONBean> adapter = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_spinner_dropdown_item, listaPaises);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerPaises.setAdapter(adapter);
                 spinnerPaises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        pais = (Paises.YfINSTITUTIONBean) spinnerPaises.getItemAtPosition(position);
+                        pais = (Handler_Paises.YfINSTITUTIONBean) spinnerPaises.getItemAtPosition(position);
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
@@ -375,63 +373,16 @@ public class Registro extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String valorDevuelto = new String(responseBody);
                 gson = new Gson();
-                areas = gson.fromJson(valorDevuelto, Areas.class);
-                listaAreas = areas.getListaAreas();
-                ArrayAdapter<Areas.Area> adapter = new ArrayAdapter<>(getActivity(),
+                areas = gson.fromJson(valorDevuelto, Handler_Areas.class);
+                listaAreas = areas.getYf_AREA();
+                ArrayAdapter<Handler_Areas.YfAREABean> adapter = new ArrayAdapter<>(getActivity(),
                         android.R.layout.simple_spinner_dropdown_item, listaAreas);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                /*spinnerAreas.setAdapter(adapter);
+                spinnerAreas.setAdapter(adapter);
                 spinnerAreas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        area = (Areas.Area) spinnerAreas.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });*/
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });
-        cliente1.get(this.getContext(), urlTiposCentros,new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
-                gson = new Gson();
-                tiposCentros = gson.fromJson(valorDevuelto, TiposCentros.class);
-                listaTiposCentros = tiposCentros.getListaTiposCentros();
-                ArrayAdapter<TiposCentros.TipoCentro> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaTiposCentros);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                /*spinnerTiposCentros.setAdapter(adapter);
-                spinnerTiposCentros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        tipoCentro = (TiposCentros.TipoCentro) spinnerTiposCentros.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });*/
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });
-
-        /*cliente1.get(this.getContext(), urlTiposProyectos,new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
-                gson = new Gson();
-                tiposProyectos = gson.fromJson(valorDevuelto, TiposProyectos.class);
-                listaTiposProyectos = tiposProyectos.getListaTiposProyectos();
-                ArrayAdapter<TiposProyectos.TipoProyecto> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaTiposProyectos);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerTiposProyectos.setAdapter(adapter);
-                spinnerTiposProyectos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        tipoProyecto = (TiposProyectos.TipoProyecto) spinnerTiposProyectos.getItemAtPosition(position);
+                        area = (Handler_Areas.YfAREABean) spinnerAreas.getItemAtPosition(position);
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {}
@@ -439,6 +390,54 @@ public class Registro extends Fragment {
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });*/
+        });
+
+        cliente1.get(this.getContext(), urlTiposCentros,new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String valorDevuelto = new String(responseBody);
+                gson = new Gson();
+                tiposCentros = gson.fromJson(valorDevuelto, Handler_TiposCentros.class);
+                listaTiposCentros = tiposCentros.getYf_TYPE();
+                ArrayAdapter<Handler_TiposCentros.YfTYPEBean> adapter = new ArrayAdapter<>(getActivity(),
+                        android.R.layout.simple_spinner_dropdown_item, listaTiposCentros);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerTiposCentros.setAdapter(adapter);
+                spinnerTiposCentros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        tipoCentro = (Handler_TiposCentros.YfTYPEBean) spinnerTiposCentros.getItemAtPosition(position);
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
+        });
+
+        cliente1.get(this.getContext(), urlTiposProyectos,new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String valorDevuelto = new String(responseBody);
+                gson = new Gson();
+                tiposProyectos = gson.fromJson(valorDevuelto, Handler_TiposProyectos.class);
+                listaTiposProyectos = tiposProyectos.getYf_KTYPE();
+                ArrayAdapter<Handler_TiposProyectos.YfKTYPEBean> adapter = new ArrayAdapter<>(getActivity(),
+                        android.R.layout.simple_spinner_dropdown_item, listaTiposProyectos);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerTiposProyectos.setAdapter(adapter);
+                spinnerTiposProyectos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        tipoProyecto = (Handler_TiposProyectos.YfKTYPEBean) spinnerTiposProyectos.getItemAtPosition(position);
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {}
+                });
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
+        });
     }
 }

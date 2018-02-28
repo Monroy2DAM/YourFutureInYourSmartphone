@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //==============================================================================================
     // VARIABLES
     //==============================================================================================
+    Fragment fragment;
+    FragmentManager gestorFragment;
+    FragmentTransaction transaccionFragment;
 
     //==============================================================================================
     // MÉTODOS SOBREESCRITOS
@@ -81,39 +84,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        Fragment fragment;
-        FragmentManager gestorFragment;
-        FragmentTransaction transaccionFragment;
-        File archivoLog;
         int id;
+        File archivoLog;
 
         id = item.getItemId(); // Se obtiene el ID de la opción seleccionada.
+
+        archivoLog = new File(this.getFilesDir() + "/" + FICHERO_LOGIN);
 
         //==========================================================================================
         // REGISTRO
         //==========================================================================================
         if (id == R.id.nav_registro) {
-            archivoLog = new File(this.getFilesDir() + "/" +FICHERO_LOGIN);
 
-            if(archivoLog.exists())
+            if (archivoLog.exists()) {
                 Toast.makeText(this, "Para registrar un nuevo usuario primero debe deslogearse.", Toast.LENGTH_SHORT).show();
-            else{
-                fragment = new Registro();
-                getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
-                gestorFragment = getSupportFragmentManager();
-                transaccionFragment = gestorFragment.beginTransaction();
-                transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+
+            } else {
+                mostrarRegistro();
             }
 
         //==========================================================================================
         // INICIAR SESIÓN
         //==========================================================================================
         } else if (id == R.id.nav_inicio_sesion) {
-            fragment = new Login();
-            getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
-            gestorFragment = getSupportFragmentManager();
-            transaccionFragment = gestorFragment.beginTransaction();
-            transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+            mostrarLogin();
 
         //==========================================================================================
         // BUSCAR
@@ -121,23 +115,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_buscar) {
             try {
 
-                FileReader flujo = new FileReader(FICHERO_LOGIN);
+                FileReader flujo = new FileReader(this.getFilesDir() + "/" + FICHERO_LOGIN);
                 BufferedReader filtro = new BufferedReader(flujo);
                 int estadoLogin = Integer.parseInt(filtro.readLine().trim());
                 filtro.close();
                 flujo.close();
 
                 if (estadoLogin == 1) {
-                    // TODO Lanzar fragment de Búsqueda
+                    mostrarBusqueda();
                 }
 
             } catch (java.io.IOException e) {
-                e.printStackTrace();
+                Toast.makeText(this, "Debe logearse para acceder a búsqueda", Toast.LENGTH_SHORT).show();
+                mostrarLogin();
             }
+        } else if (id == R.id.nav_logout) {
+
+            archivoLog = new File(this.getFilesDir() + "/" + FICHERO_LOGIN);
+
+            if (archivoLog.exists()) {
+                archivoLog.delete();
+                Toast.makeText(this, "Se ha desconectado correctamente.", Toast.LENGTH_SHORT).show();
+            } else
+                Toast.makeText(this, "Para deslogearse primero hay que logearse.", Toast.LENGTH_SHORT).show();
+
+            mostrarLogin();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void mostrarRegistro() {
+        fragment = new Registro();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+    }
+
+    private void mostrarLogin() {
+        fragment = new Login();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
+    }
+
+    private void mostrarBusqueda() {
+        fragment = new Buscar();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
     }
 }
