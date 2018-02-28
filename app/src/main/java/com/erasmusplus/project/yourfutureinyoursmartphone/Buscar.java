@@ -56,7 +56,7 @@ public class Buscar extends Fragment {
 
         cargarSpinnerPais();
         cargarSpinnerArea();
-        //cargarSpinnerLtype();
+        cargarSpinnerLtype();
         cargarSpinnerKtype();
 
         boton.setOnClickListener(new View.OnClickListener() {
