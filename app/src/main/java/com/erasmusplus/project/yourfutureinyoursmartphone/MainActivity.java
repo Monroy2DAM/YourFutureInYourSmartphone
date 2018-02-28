@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 transaccionFragment = gestorFragment.beginTransaction();
                 transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
             }
-            
+
         //==========================================================================================
         // INICIAR SESIÓN
         //==========================================================================================
