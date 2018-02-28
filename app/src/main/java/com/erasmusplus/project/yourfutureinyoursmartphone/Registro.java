@@ -28,72 +28,75 @@ import cz.msebera.android.httpclient.Header;
 public class Registro extends Fragment {
 
     //==============================================================================================
-    // VARIABLES
+    // CONSTANTES
+    //==============================================================================================
+    private static final String URL_OBTENER_PAISES = "http://practicascursodam.esy.es/yourfuture/gson/get_all_country.php";
+    private static final String URL_OBTENER_AREAS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_area.php";
+    private static final String URL_OBTENER_TIPOS_PROYECTOS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_ktype.php";
+    private static final String URL_OBTENER_CORREO_CENTRO = "http://practicascursodam.esy.es/yourfuture/gson/get_institution_details_email.php";
+    private static final String URL_OBTENER_CORREO_PERSONA = "http://practicascursodam.esy.es/yourfuture/gson/get_contact_person_details_email.php";
+    private static final String URL_OBTENER_TIPOS_CENTROS = "http://practicascursodam.esy.es/yourfuture/gson/get_all_type.php";
+    private static final String URL_REGISTRO_PERSONA = "http://practicascursodam.esy.es/yourfuture/gson/create_contact_person.php";
+    private static final String URL_REGISTRO_CENTRO = "http://practicascursodam.esy.es/yourfuture/gson/create_institution.php";
+    private static final String URL_REGISTRO_PROYECTO = "http://practicascursodam.esy.es/yourfuture/gson/create_project.php";
+
+    //==============================================================================================
+    // ATRIBUTOS
     //==============================================================================================
     // GSON.
-    Gson gson;
-    AsyncHttpClient cliente1, cliente2, cliente3;
+    private Gson gson;
+    private AsyncHttpClient cliente;
 
-    // URLs JSON.
-    String urlPaises = "http://practicascursodam.esy.es/yourfuture/gson/get_all_country.php";
-    String urlAreas = "http://practicascursodam.esy.es/yourfuture/gson/get_all_area.php";
-    //String urlCentros = "http://practicascursodam.esy.es/yourfuture/gson/get_all_institution.php";
-    //String urlProyectos = "http://practicascursodam.esy.es/yourfuture/gson/get_all_project.php";
-    String urlRegistroPersona = "http://practicascursodam.esy.es/yourfuture/gson/create_contact_person.php";
-    String urlRegistroCentro = "http://practicascursodam.esy.es/yourfuture/gson/create_institution.php";
-    String urlRegistroProyecto = "http://practicascursodam.esy.es/yourfuture/gson/create_project.php";
-    String urlTiposProyectos = "http://practicascursodam.esy.es/yourfuture/gson/get_all_ktype.php";
-    String urlInstitucionEmail = "http://practicascursodam.esy.es/yourfuture/gson/get_institution_details_email.php";
-    String urlContactoEmail = "http://practicascursodam.esy.es/yourfuture/gson/get_contact_person_details_email.php";
-    String urlTiposCentros = "http://practicascursodam.esy.es/yourfuture/gson/get_all_type.php";
+    // Países.
+    private Handler_Paises paises;
+    private Handler_Paises.YfINSTITUTIONBean pais;
+    private List<Handler_Paises.YfINSTITUTIONBean> listaPaises;
 
-    Handler_Paises paises;
-    Handler_Paises.YfINSTITUTIONBean pais;
-    List<Handler_Paises.YfINSTITUTIONBean> listaPaises;
+    // Áreas.
+    private Handler_Areas areas;
+    private Handler_Areas.YfAREABean area;
+    private List<Handler_Areas.YfAREABean> listaAreas;
 
-    Handler_Areas areas;
-    Handler_Areas.YfAREABean area;
-    List<Handler_Areas.YfAREABean> listaAreas;
+    // Centros.
+    private Handler_Centros centros;
+    private Handler_Centros.YfINSTITUTIONBean centro;
+    private List<Handler_Centros.YfINSTITUTIONBean> listaCentros;
 
-    Handler_Centros centros;
-    Handler_Centros.YfINSTITUTIONBean centro;
-    List<Handler_Centros.YfINSTITUTIONBean> listaCentros;
+    // Tipos proyectos.
+    private Handler_TiposProyectos tiposProyectos;
+    private Handler_TiposProyectos.YfKTYPEBean tipoProyecto;
+    private List<Handler_TiposProyectos.YfKTYPEBean> listaTiposProyectos;
 
-    //Proyectos proyectos;
-    //Proyectos.Proyecto proyecto;
-    //List<Proyectos.Proyecto> listaProyectos;
+    // Tipos centros.
+    private Handler_TiposCentros tiposCentros;
+    private Handler_TiposCentros.YfTYPEBean tipoCentro;
+    private List<Handler_TiposCentros.YfTYPEBean> listaTiposCentros;
 
-    Handler_TiposProyectos tiposProyectos;
-    Handler_TiposProyectos.YfKTYPEBean tipoProyecto;
-    List<Handler_TiposProyectos.YfKTYPEBean> listaTiposProyectos;
+    // Persona.
+    private Personas personas;
+    private Personas.Persona persona;
+    private List<Personas.Persona> listaPersonas;
 
-    Handler_TiposCentros tiposCentros;
-    Handler_TiposCentros.YfTYPEBean tipoCentro;
-    List<Handler_TiposCentros.YfTYPEBean> listaTiposCentros;
+    private CrearCentro nuevoCentro;
+    private CrearPersona nuevaPersona;
+    private CrearProyecto nuevoProyecto;
 
-    Personas personaContacto;
-    Personas.Persona personaC;
-    List<Personas.Persona> listaPersonaContacto;
-
-    CrearCentro nuevoCentro;
-    CrearPersona nuevaPersona;
-    CrearProyecto nuevoProyecto;
-
-    String emailInstitucion, emailContacto;
-    String idInstitucion, idPersona;
+    private String correoCentro, correoPersona;
+    private String idCentro, idPersona;
 
     // Elementos de la vista.
-    CheckBox casillaCondiciones;
-    Button botonRegitrar;
-    EditText campoNombreCentro, campoDireccionCentro, campoCiudadCentro, campoCorreoCentro, campoPicCentro;
-    EditText campoNombrePersona, campoApellidosPersona, campoCorreoPersona, campoClavePersona, campoRepetirClavePersona;
-    EditText campoNombreProyecto;
-    Spinner spinnerPaises, spinnerAreas, spinnerTiposCentros, spinnerTiposProyectos;
+    private CheckBox casillaCondiciones;
+    private Button botonRegitrar;
+    private EditText campoNombreCentro, campoDireccionCentro, campoCiudadCentro, campoCorreoCentro, campoPicCentro;
+    private EditText campoNombrePersona, campoApellidosPersona, campoCorreoPersona, campoClavePersona, campoRepetirClavePersona;
+    private EditText campoNombreProyecto;
+    private Spinner spinnerPaises, spinnerAreas, spinnerTiposCentros, spinnerTiposProyectos;
 
     //==============================================================================================
     // CONSTRUCTOR
     //==============================================================================================
-    public Registro() {}
+    public Registro() {
+    }
 
     //==============================================================================================
     // MÉTODOS SOBREESCRITOS
@@ -101,10 +104,8 @@ public class Registro extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View vista;
 
-        // Se asocia el fragment a su vista.
         vista = inflater.inflate(R.layout.registro, container, false);
 
-        // Se inicializan los elementos visuales.
         spinnerPaises = vista.findViewById(R.id.spinner_paises);
         spinnerAreas = vista.findViewById(R.id.spinner_areas);
         spinnerTiposCentros = vista.findViewById(R.id.spinner_tipos_centros);
@@ -123,216 +124,200 @@ public class Registro extends Fragment {
         campoNombreProyecto = vista.findViewById(R.id.campo_nombre_proyecto);
         botonRegitrar = vista.findViewById(R.id.boton_registro);
 
-        // Se cargan los spinners.
         cargarSpinners();
 
-        // Escuchador al boton
+        cliente = new AsyncHttpClient();
+
         botonRegitrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crearInstitucion();
+                crearCentro();
             }
-            private void crearInstitucion() {
-                // Comprobamos que el checkbox de las condiciones está marcado
+
+            private void crearCentro() {
+                RequestParams parametrosRegistroCentro;
+
                 if (!casillaCondiciones.isChecked()) {
-                    // Si no lo esta le indicamos que debe de aceptarlo
-                    Toast.makeText(getContext(), "Debe aceptar las condiciones para avanzar", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "No has aceptado las condiciones.", Toast.LENGTH_LONG).show();
+
                 } else {
-                    // Si las condiciones han sido aceptado comprobamos que los passwords introducidos
-                    // son iguales
                     if (!campoClavePersona.getText().toString().equals(campoRepetirClavePersona.getText().toString())) {
-                        // Si no lo son se lo indicamos al usuario
-                        Toast.makeText(getContext(), "Las contraseñas deben coincidir", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "La contraseña no coincide.", Toast.LENGTH_LONG).show();
+
                     } else {
-                        // Creamos los parametros para la el primer registro (institucion)
-                        RequestParams rp = new RequestParams();
-                        // Iniciamos el cliente1 asyn
-                        cliente2 = new AsyncHttpClient();
-                        // Recogemos los parametros de los campos introducidos y los vamos poniendo en el
-                        // paquete de parametros
-                        emailInstitucion = campoCorreoCentro.getText().toString();
-                        rp.put("EMAIL", emailInstitucion);
-                        rp.put("NAME", campoNombreCentro.getText().toString());
-                        rp.put("STREET", campoDireccionCentro.getText().toString());
-                        rp.put("CITY", campoCiudadCentro.getText().toString());
-                        rp.put("COUNTRY", pais.getCOUNTRY().toString());
-                        rp.put("TYPE", tipoCentro.getID());
-                        // Enviamos los parametros al servidor
-                        cliente2.post(urlRegistroCentro, rp, new JsonHttpResponseHandler() {
+                        parametrosRegistroCentro = new RequestParams();
+                        correoCentro = campoCorreoCentro.getText().toString();
+                        parametrosRegistroCentro.put("EMAIL", correoCentro);
+                        parametrosRegistroCentro.put("NAME", campoNombreCentro.getText().toString());
+                        parametrosRegistroCentro.put("STREET", campoDireccionCentro.getText().toString());
+                        parametrosRegistroCentro.put("CITY", campoCiudadCentro.getText().toString());
+                        parametrosRegistroCentro.put("COUNTRY", pais.getCOUNTRY());
+                        parametrosRegistroCentro.put("TYPE", tipoCentro.getID());
+
+                        cliente.post(URL_REGISTRO_CENTRO, parametrosRegistroCentro, new JsonHttpResponseHandler() {
+
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                String respuesta, mensaje;
+                                int exito;
+
                                 if (statusCode == 200) {
-                                    //Recogemos la respuesta del servidor si todo ha ido bien
-                                    String respuesta = new String(response.toString());
-                                    // Creamos el objeto gson
+                                    respuesta = new String(response.toString());
                                     gson = new Gson();
-                                    // Recogemos de la respuesta el centro
+
                                     nuevoCentro = gson.fromJson(respuesta, CrearCentro.class);
-                                    // Y el success
-                                    int res = nuevoCentro.getExito();
-                                    String mensaje = nuevoCentro.getMensaje();
-                                    if (res == 1) {
-                                        // Indicamos que todo ha ido bien
-                                        Toast.makeText(getContext(), "Centro creado correctamente " + mensaje, Toast.LENGTH_LONG).show();
-                                        // Y localizamos la institucion recien creada
-                                        localizarInstitucion();
+                                    exito = nuevoCentro.getSuccess();
+                                    mensaje = nuevoCentro.getMessage();
+
+                                    if (exito == 1) {
+                                        Toast.makeText(getContext(), "Se ha registrado el centro.\n" + mensaje, Toast.LENGTH_LONG).show();
+                                        localizarCentro();
+
                                     } else {
-                                        Toast.makeText(getContext(), "Error " + mensaje, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getContext(), "No se ha podido registrar el centro.\n" + mensaje, Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }
                         });
-
                     }
                 }
             }
 
-            /**
-             * Metodo que localiza la institucion recien creada y pasa a crear el nuevo usuario
-             */
-            private void localizarInstitucion() {
-                // Creamos los parametros y le pasamos el email de la institucion
-                RequestParams rp2 = new RequestParams();
-                rp2.put("email", emailInstitucion);
-                // Creamos el cliente1 asyn
-                cliente3 = new AsyncHttpClient();
-                // Realizamos la consutla para localizar la institucion por su email
-                cliente3.get(urlInstitucionEmail, rp2, new JsonHttpResponseHandler() {
+            private void localizarCentro() {
+                RequestParams parametrosBusquedaCentro;
+
+                parametrosBusquedaCentro = new RequestParams();
+                parametrosBusquedaCentro.put("email", correoCentro);
+
+                cliente.get(URL_OBTENER_CORREO_CENTRO, parametrosBusquedaCentro, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        String respuesta;
+                        int exito;
+
                         if (statusCode == 200) {
-                            // Todo bien recogemos la respuesta
-                            String respuesta = new String(response.toString());
-                            // Iniciamos el objeto Gson
+                            respuesta = new String(response.toString());
                             gson = new Gson();
-                            // Recogemos los centros devueltos y el success
+
                             centros = gson.fromJson(respuesta, Handler_Centros.class);
-                            int res = centros.getSuccess();
-                            if (res == 1) {
-                                // Avisamos que se ha recogido bien el centro
-                                Toast.makeText(getContext(), "Centro recogido ok ", Toast.LENGTH_LONG).show();
-                                // Cogemos la lista de centros
+                            exito = centros.getSuccess();
+
+                            if (exito == 1) {
                                 listaCentros = centros.getYf_INSTITUTION();
-                                // De la lista cogemos el primero
                                 centro = listaCentros.get(0);
-                                // Y recogemos el ide
-                                idInstitucion = centro.getID();
-                                // Pasamos a crear la persona
-                                altaPersonaContacto();
-                                Toast.makeText(getContext(), idInstitucion, Toast.LENGTH_LONG);
+                                idCentro = centro.getID();
+
+                                crearPersona();
+
                             } else {
-                                // Avisamos del error si ha ido mal algo
-                                Toast.makeText(getContext(), "Error no existen centros", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "No se puede registrar la persona de contacto.", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });
             }
 
-            /**
-             * Metodo para dar de alta a la persona de contacto
-             */
-            private void altaPersonaContacto() {
-                // Creamos los parametros y los vamos colocando
-                RequestParams rp3 = new RequestParams();
-                emailContacto = campoCorreoPersona.getText().toString();
-                rp3.put("EMAIL", emailContacto);
-                rp3.put("NAME", campoNombrePersona.getText().toString());
-                rp3.put("LASTNAME", campoApellidosPersona.getText().toString());
-                rp3.put("AREA", area.getID().toString());
-                rp3.put("PASSWORD", campoClavePersona.getText().toString());
-                rp3.put("IDINST", idInstitucion);
-                // Iniciamos la creacion de la nueva persona en el servidor
-                cliente2.post(urlRegistroPersona, rp3, new JsonHttpResponseHandler() {
+            private void crearPersona() {
+                RequestParams parametroRegistroPersona;
+
+                parametroRegistroPersona = new RequestParams();
+                correoPersona = campoCorreoPersona.getText().toString();
+                parametroRegistroPersona.put("EMAIL", correoPersona);
+                parametroRegistroPersona.put("NAME", campoNombrePersona.getText().toString());
+                parametroRegistroPersona.put("LASTNAME", campoApellidosPersona.getText().toString());
+                parametroRegistroPersona.put("AREA", area.getID());
+                parametroRegistroPersona.put("PASSWORD", campoClavePersona.getText().toString());
+                parametroRegistroPersona.put("IDINST", idCentro);
+
+                cliente.post(URL_REGISTRO_PERSONA, parametroRegistroPersona, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        String respuesta, mensaje;
+                        int exito;
+
                         if (statusCode == 200) {
-                            // Todo bien, recogemos la respuesta
-                            String respuesta = new String(response.toString());
-                            // Creamos el objeto Gson
+                            respuesta = new String(response.toString());
                             gson = new Gson();
-                            // Recogemos la persona y el success
+
                             nuevaPersona = gson.fromJson(respuesta, CrearPersona.class);
-                            int res = nuevaPersona.getExito();
-                            String mensaje = nuevaPersona.getMensaje();
-                            if (res == 1) {
-                                // Indicamos que la persona ha sido registrada con exito
-                                Toast.makeText(getContext(), "Persona creada correctamente " + mensaje, Toast.LENGTH_LONG).show();
-                                // Localizamos la persona recien creada
-                                localizarContacto();
+                            exito = nuevaPersona.getSuccess();
+                            mensaje = nuevaPersona.getMessage();
+
+                            if (exito == 1) {
+                                Toast.makeText(getContext(), "Se ha registrado a la persona de contacto.\n" + mensaje, Toast.LENGTH_LONG).show();
+
+                                localizarPersona();
+
                             } else {
-                                // Si no se ha podido crear informamos del error
-                                Toast.makeText(getContext(), "Error " + mensaje, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "No se ha podido registrar a la persona de contacto.\n" + mensaje, Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 });
             }
 
-            /**
-             * Metodo para localizar la persona creada recientemente
-             */
-            private void localizarContacto() {
-                // Creamos los parametros para la busqueda con el email
-                RequestParams rp4 = new RequestParams();
-                rp4.put("email", emailContacto);
-                // Realizamos la consulta al servidor
-                cliente3.get(urlContactoEmail, rp4, new JsonHttpResponseHandler() {
+            private void localizarPersona() {
+                RequestParams parametrosBusquedaPersona;
+
+                parametrosBusquedaPersona = new RequestParams();
+                parametrosBusquedaPersona.put("email", correoPersona);
+
+                cliente.get(URL_OBTENER_CORREO_PERSONA, parametrosBusquedaPersona, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        String respuesta;
+                        int exito;
+
                         if (statusCode == 200) {
-                            // Todo bien recogemos la respuesta
-                            String respuesta = new String(response.toString());
-                            // Creamos el objeto Gson
+                            respuesta = new String(response.toString());
                             gson = new Gson();
-                            // Recogmeos de la repuesta la persona y el success
-                            personaContacto = gson.fromJson(respuesta, Personas.class);
-                            int res = personaContacto.getExito();
-                            if (res == 1) {
-                                // Si todo va bien mostramos el mensaje
-                                Toast.makeText(getContext(), "Persona recogida ok ", Toast.LENGTH_LONG).show();
-                                // Recogemos la lista de personas
-                                listaPersonaContacto = personaContacto.getListaPersonas();
-                                // Recogemos la persona
-                                personaC = listaPersonaContacto.get(0);
-                                // Y cogemos su id
-                                idPersona = personaC.getIdPersona();
-                                // Pasamos a dar de alta al proyecto
-                                altaProyecto();
+
+                            personas = gson.fromJson(respuesta, Personas.class);
+                            exito = personas.getExito();
+
+                            if (exito == 1) {
+                                listaPersonas = personas.getListaPersonas();
+                                persona = listaPersonas.get(0);
+                                idPersona = persona.getIdPersona();
+
+                                crearProyecto();
                             }
                         }
                     }
                 });
             }
 
-            /**
-             * Metodo para dar de alta al proyecto
-             */
-            private void altaProyecto() {
-                // Creamos los parametros
-                RequestParams rp5 = new RequestParams();
-                rp5.put("NAME", campoNombreProyecto.getText().toString());
-                rp5.put("IDCONTACT", idPersona);
-                rp5.put("KTYPE", tipoProyecto.getID().toString());
-                // Realizamos el envido de datos al servidor para el alta
-                cliente2.post(urlRegistroProyecto,rp5, new JsonHttpResponseHandler(){
+            private void crearProyecto() {
+                RequestParams parametrosRegistroProyecto;
+
+                parametrosRegistroProyecto = new RequestParams();
+                parametrosRegistroProyecto.put("NAME", campoNombreProyecto.getText().toString());
+                parametrosRegistroProyecto.put("IDCONTACT", idPersona);
+                parametrosRegistroProyecto.put("KTYPE", tipoProyecto.getID());
+
+                cliente.post(URL_REGISTRO_PROYECTO, parametrosRegistroProyecto, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        if (statusCode==200){
-                            // Recogemos la respuesta
-                            String respuesta = new String(response.toString());
-                            // Creamos el objeto Gson
+                        String respuesta, mensaje;
+                        int exito;
+
+                        if (statusCode == 200) {
+                            respuesta = new String(response.toString());
                             gson = new Gson();
-                            // Recogemos el proyecto y e success
+
                             nuevoProyecto = gson.fromJson(respuesta, CrearProyecto.class);
-                            int res = nuevoProyecto.getExito();
-                            String mensaje = nuevoProyecto.getMensaje();
-                            if (res==1){
-                                // Si todo va bien informamos de la creacion del proyecto
-                                Toast.makeText(getContext(), "Proyecto creado correctamente "+mensaje, Toast.LENGTH_LONG).show();}
-                            else {
-                                // Si algo falla lo indicamos
-                                Toast.makeText(getContext(), "Error "+ mensaje, Toast.LENGTH_LONG).show();
+                            exito = nuevoProyecto.getSuccess();
+                            mensaje = nuevoProyecto.getMessage();
+
+                            if (exito == 1) {
+                                Toast.makeText(getContext(), "Se ha registrado el proyecto.\n" + mensaje, Toast.LENGTH_LONG).show();
+
+                            } else {
+                                Toast.makeText(getContext(), "No se ha podido registrar el proyecto.\n" + mensaje, Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -343,101 +328,155 @@ public class Registro extends Fragment {
     }
 
     private void cargarSpinners() {
-        cliente1 = new AsyncHttpClient();
+        cliente = new AsyncHttpClient();
 
-        cliente1.get(this.getContext(), urlPaises, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
-                gson = new Gson();
-                paises = gson.fromJson(valorDevuelto, Handler_Paises.class);
-                listaPaises = paises.getYf_INSTITUTION();
-                ArrayAdapter<Handler_Paises.YfINSTITUTIONBean> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaPaises);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerPaises.setAdapter(adapter);
-                spinnerPaises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        pais = (Handler_Paises.YfINSTITUTIONBean) spinnerPaises.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });
-        cliente1.get(this.getContext(), urlAreas,new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
-                gson = new Gson();
-                areas = gson.fromJson(valorDevuelto, Handler_Areas.class);
-                listaAreas = areas.getYf_AREA();
-                ArrayAdapter<Handler_Areas.YfAREABean> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaAreas);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerAreas.setAdapter(adapter);
-                spinnerAreas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        area = (Handler_Areas.YfAREABean) spinnerAreas.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });
+        cargarSpinnerPaises(cliente);
+        cargarSpinnerAreas(cliente);
+        cargarSpinnerTiposCentros(cliente);
+        cargarSpinnerTiposProyectos(cliente);
+    }
 
-        cliente1.get(this.getContext(), urlTiposCentros,new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
-                gson = new Gson();
-                tiposCentros = gson.fromJson(valorDevuelto, Handler_TiposCentros.class);
-                listaTiposCentros = tiposCentros.getYf_TYPE();
-                ArrayAdapter<Handler_TiposCentros.YfTYPEBean> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaTiposCentros);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerTiposCentros.setAdapter(adapter);
-                spinnerTiposCentros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        tipoCentro = (Handler_TiposCentros.YfTYPEBean) spinnerTiposCentros.getItemAtPosition(position);
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
-                });
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
-        });
+    private void cargarSpinnerTiposProyectos(AsyncHttpClient cliente) {
+        cliente.get(this.getContext(), URL_OBTENER_TIPOS_PROYECTOS, new AsyncHttpResponseHandler() {
 
-        cliente1.get(this.getContext(), urlTiposProyectos,new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String valorDevuelto = new String(responseBody);
+                String valorDevuelto;
+                ArrayAdapter<Handler_TiposProyectos.YfKTYPEBean> adaptador;
+
+                valorDevuelto = new String(responseBody);
                 gson = new Gson();
                 tiposProyectos = gson.fromJson(valorDevuelto, Handler_TiposProyectos.class);
                 listaTiposProyectos = tiposProyectos.getYf_KTYPE();
-                ArrayAdapter<Handler_TiposProyectos.YfKTYPEBean> adapter = new ArrayAdapter<>(getActivity(),
-                        android.R.layout.simple_spinner_dropdown_item, listaTiposProyectos);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerTiposProyectos.setAdapter(adapter);
+
+                adaptador = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listaTiposProyectos);
+                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerTiposProyectos.setAdapter(adaptador);
                 spinnerTiposProyectos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         tipoProyecto = (Handler_TiposProyectos.YfKTYPEBean) spinnerTiposProyectos.getItemAtPosition(position);
                     }
+
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
                 });
             }
+
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {            }
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
+        });
+    }
+
+    private void cargarSpinnerTiposCentros(AsyncHttpClient cliente) {
+        cliente.get(this.getContext(), URL_OBTENER_TIPOS_CENTROS, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String valorDevuelto;
+                ArrayAdapter<Handler_TiposCentros.YfTYPEBean> adaptador;
+
+                valorDevuelto = new String(responseBody);
+                gson = new Gson();
+                tiposCentros = gson.fromJson(valorDevuelto, Handler_TiposCentros.class);
+                listaTiposCentros = tiposCentros.getYf_TYPE();
+
+                adaptador = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listaTiposCentros);
+                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerTiposCentros.setAdapter(adaptador);
+                spinnerTiposCentros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        tipoCentro = (Handler_TiposCentros.YfTYPEBean) spinnerTiposCentros.getItemAtPosition(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
+        });
+    }
+
+    private void cargarSpinnerAreas(AsyncHttpClient cliente) {
+        cliente.get(this.getContext(), URL_OBTENER_AREAS, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String valorDevuelto;
+                ArrayAdapter<Handler_Areas.YfAREABean> adaptador;
+
+                valorDevuelto = new String(responseBody);
+                gson = new Gson();
+                areas = gson.fromJson(valorDevuelto, Handler_Areas.class);
+                listaAreas = areas.getYf_AREA();
+
+                adaptador = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listaAreas);
+                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerAreas.setAdapter(adaptador);
+                spinnerAreas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        area = (Handler_Areas.YfAREABean) spinnerAreas.getItemAtPosition(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
+        });
+    }
+
+    private void cargarSpinnerPaises(AsyncHttpClient cliente) {
+        cliente.get(this.getContext(), URL_OBTENER_PAISES, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String valorDevuelto;
+                ArrayAdapter<Handler_Paises.YfINSTITUTIONBean> adaptador;
+
+                valorDevuelto = new String(responseBody);
+                gson = new Gson();
+                paises = gson.fromJson(valorDevuelto, Handler_Paises.class);
+                listaPaises = paises.getYf_INSTITUTION();
+
+                adaptador = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, listaPaises);
+                adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinnerPaises.setAdapter(adaptador);
+                spinnerPaises.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        pais = (Handler_Paises.YfINSTITUTIONBean) spinnerPaises.getItemAtPosition(position);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+            }
         });
     }
 }
