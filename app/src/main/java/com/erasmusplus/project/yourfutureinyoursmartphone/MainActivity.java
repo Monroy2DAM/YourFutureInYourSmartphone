@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mostrarInicio();
     }
 
     @Override
@@ -145,6 +147,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void mostrarInicio() {
+        fragment = new Inicio();
+        getSupportFragmentManager().beginTransaction().add(R.id.area_pantalla, fragment).commit();
+        gestorFragment = getSupportFragmentManager();
+        transaccionFragment = gestorFragment.beginTransaction();
+        transaccionFragment.replace(R.id.area_pantalla, fragment).commit();
     }
 
     private void mostrarRegistro() {
