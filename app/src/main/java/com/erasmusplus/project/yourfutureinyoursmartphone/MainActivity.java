@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             if (archivoLog.exists()) {
                 Toast.makeText(this, "Para registrar un nuevo usuario primero debe deslogearse.", Toast.LENGTH_SHORT).show();
-
             } else {
                 mostrarRegistro();
             }
@@ -115,25 +114,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // BUSCAR
         //==========================================================================================
         } else if (id == R.id.nav_buscar) {
-            try {
 
-                FileReader flujo = new FileReader(this.getFilesDir() + "/" + FICHERO_LOGIN);
-                BufferedReader filtro = new BufferedReader(flujo);
-                int estadoLogin = Integer.parseInt(filtro.readLine().trim());
-                filtro.close();
-                flujo.close();
-
-                if (estadoLogin == 1) {
-                    mostrarBusqueda();
-                }
-
-            } catch (java.io.IOException e) {
+            if (archivoLog.exists()) {
+                mostrarBusqueda();
+            }else {
                 Toast.makeText(this, "Debe logearse para acceder a búsqueda", Toast.LENGTH_SHORT).show();
                 mostrarLogin();
             }
-        } else if (id == R.id.nav_logout) {
 
-            archivoLog = new File(this.getFilesDir() + "/" + FICHERO_LOGIN);
+
+        } else if (id == R.id.nav_logout) {
 
             if (archivoLog.exists()) {
                 archivoLog.delete();

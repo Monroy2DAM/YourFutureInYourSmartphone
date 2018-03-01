@@ -15,13 +15,14 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
 public class Busqueda extends AppCompatActivity {
-
-    // Todo disimular elemento_lista_socio
 
     private ListView lista;
     private AdaptadorSocios adaptador;
@@ -35,8 +36,6 @@ public class Busqueda extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         List<Handler_Contactos.YfRESULTADOBean> listaContactos = (List<Handler_Contactos.YfRESULTADOBean>) extras.get("LISTA");
 
-
-        //AdaptadorBD db = new AdaptadorBD(getApplicationContext());
         AsyncHttpClient cliente = new AsyncHttpClient();
 
         RequestParams rp = new RequestParams();
@@ -69,21 +68,31 @@ public class Busqueda extends AppCompatActivity {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String email;
-//                // Abrimos la base de datos para recoger el email de la persona que está logueada
-//                db.open();
-//                email = db.getLogin(1).getString(2);
-//                db.close();
-//                // Creamos un intent
-//                Intent intent = new Intent(getApplication(), EnviarEmail.class);
-//                // Cogemos a la persona de contacto correspondiente al elemento pulsado
-//                PersonaContacto.YfRESULTADOBean nuevoContacto = (PersonaContacto.YfRESULTADOBean)
-//                        adaptador.getItem(position);
-//                // Le pasamos al intent como paquete el email de la persona interesada y el del contacto
-//                intent.putExtra("DE", email);
-//                intent.putExtra("PARA", nuevoContacto.getEMAIL().toString());
-//                // Arrancamos el intent
-//                startActivity(intent);
+                try {
+
+                    FileReader flujo = new FileReader(getFilesDir() + "/" + MainActivity.FICHERO_LOGIN);
+                    BufferedReader filtro = new BufferedReader(flujo);
+
+                    String email = filtro.readLine();
+
+                    filtro.close();
+                    flujo.close();
+
+                    Intent i = new Intent(getApplication(), GestorEmail.class);
+
+                    Handler_Contactos.YfRESULTADOBean destinatario = (Handler_Contactos.YfRESULTADOBean)
+                            adaptador.getItem(position);
+
+                    i.putExtra("DE", email);
+                    i.putExtra("PARA", destinatario.getEMAIL().toString());
+
+                    startActivity(i);
+
+                } catch (java.io.IOException e) {
+                    e.printStackTrace();
+                }
+
+
 
 
             }

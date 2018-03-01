@@ -75,8 +75,8 @@ public class Login extends Fragment {
                                     if (res == 1) {
                                         try {
                                             PrintWriter flujo = new PrintWriter(new File(getActivity().getFilesDir(), MainActivity.FICHERO_LOGIN));
-                                            BufferedWriter filtro = new BufferedWriter(flujo);
-                                            filtro.write("1");
+                                            PrintWriter filtro = new PrintWriter(flujo);
+                                            filtro.println(email.getText().toString());
                                             filtro.close();
                                             flujo.close();
                                         } catch (IOException e) {

@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Busqueda"/>
+        <activity android:name=".GestorEmail"/>
     </application>
 
 </manifest>

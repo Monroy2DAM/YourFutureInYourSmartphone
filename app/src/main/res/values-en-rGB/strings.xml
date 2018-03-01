@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Your Future In Your Smartphone</string>
+    <string name="registrarse">Register</string>
+    <string name="iniciar_sesion">Login</string>
+    <string name="buscar">Search</string>
+    <string name="logout">Logout</string>
+    <string name="login_titulo">Login. User information</string>
+    <string name="login_email">Email</string>
+    <string name="login_email_field">e-mail</string>
+    <string name="login_password">Password</string>
+    <string name="login_password_field">password</string>
+    <string name="login_aceptar">Log-in</string>
+    <string name="registro">Register</string>
+    <string name="datos_centro_trabajo">PIC Data</string>
+    <string name="nombre">Name:</string>
+    <string name="direccion">Address:</string>
+    <string name="ciudad">City:</string>
+    <string name="nombrePais">Country:</string>
+    <string name="correo_electronico">E-mail:</string>
+    <string name="tipo">Type:</string>
+    <string name="pic">PIC:</string>
+    <string name="datos_persona">Person information</string>
+    <string name="apellidos">First Name:</string>
+    <string name="contrasenha">Password:</string>
+    <string name="repetir_contrasenha">Confirm password:</string>
+    <string name="area">Area:</string>
+    <string name="datos_proyecto">Project information</string>
+    <string name="condiciones">I agree terms and conditions</string>
+    <string name="registrarme">REGISTER</string>
+    <string name="buscar_titulo">Search for colaborators</string>
+    <string name="buscar_area">Area</string>
+    <string name="buscar_centro">Institution</string>
+    <string name="buscar_pais">Country</string>
+    <string name="buscar_tipo_proyecto">Type of project</string>
+    <string name="buscar_aceptar">Search</string>
+    <string name="email_para">To</string>
+    <string name="email_from">From</string>
+    <string name="email_mensaje">Content</string>
+    <string name="email_enviar">Send</string>
+    <string name="email_asunto">Header</string>
+</resources>
