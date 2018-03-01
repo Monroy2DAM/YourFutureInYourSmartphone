@@ -7,13 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp"
-        android:paddingEnd="16dp"
-        android:padding="16dp">
+        android:paddingTop="20dp">
 
         <TextView
             android:paddingTop="60dp"
@@ -22,7 +16,7 @@
             android:layout_height="wrap_content"
             android:text="@string/registro"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -31,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/datos_centro_trabajo"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="17sp"
             android:paddingTop="10dp"/>
 
         <LinearLayout
@@ -46,7 +40,7 @@
                 android:text="@string/nombre"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_nombre_centro"
@@ -54,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -69,7 +63,7 @@
                 android:text="@string/direccion"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_direccion"
@@ -77,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -92,7 +86,7 @@
                 android:text="@string/ciudad"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_ciudad"
@@ -100,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -115,14 +109,14 @@
                 android:text="@string/nombrePais"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner_paises"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +131,7 @@
                 android:text="@string/correo_electronico"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_correo_electronico_centro"
@@ -145,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textEmailAddress"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -160,14 +154,14 @@
                 android:text="@string/tipo"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner_tipos_centros"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -182,7 +176,7 @@
                 android:text="@string/pic"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_pic"
@@ -190,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -199,7 +193,7 @@
             android:layout_height="wrap_content"
             android:text="@string/datos_persona"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:paddingTop="10dp"/>
 
         <LinearLayout
@@ -214,7 +208,7 @@
                 android:text="@string/nombre"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_nombre_persona"
@@ -222,7 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -237,7 +231,7 @@
                 android:text="@string/apellidos"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_apellidos"
@@ -245,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -260,7 +254,7 @@
                 android:text="@string/correo_electronico"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_correo_electronico_persona"
@@ -268,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textEmailAddress"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -283,7 +277,7 @@
                 android:text="@string/contrasenha"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_contrasenha"
@@ -291,7 +285,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textPassword"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -306,7 +300,7 @@
                 android:text="@string/repetir_contrasenha"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_repetir_constraseña"
@@ -314,7 +308,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="textPassword"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -329,14 +323,14 @@
                 android:text="@string/area"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner_areas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <TextView
@@ -360,7 +354,7 @@
                 android:text="@string/nombre"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/campo_nombre_proyecto"
@@ -368,7 +362,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -383,21 +377,21 @@
                 android:text="@string/tipo"
                 android:paddingRight="5dp"
                 android:paddingEnd="5dp"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinner_tipos_proyectos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingTop="20dp">
+            android:paddingTop="17dp">
 
             <CheckBox
                 android:id="@+id/casilla_condiciones"
@@ -405,7 +399,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/condiciones"
-                android:textSize="16sp"/>
+                android:textSize="14sp"/>
 
         </LinearLayout>
 

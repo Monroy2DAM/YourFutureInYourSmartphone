@@ -6,15 +6,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_registro"
-            android:icon="@drawable/nuevo_usuario"
+            android:icon="@drawable/registro"
             android:title="@string/registrarse" />
         <item
             android:id="@+id/nav_inicio_sesion"
-            android:icon="@drawable/iniciar_sesion"
+            android:icon="@drawable/login"
             android:title="@string/iniciar_sesion" />
         <item
             android:id="@+id/nav_buscar"
-            android:icon="@drawable/buscador"
+            android:icon="@drawable/buscar"
             android:title="@string/buscar" />
         <item
             android:id="@+id/nav_logout"

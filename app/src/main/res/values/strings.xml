@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Your Future In Your Smartphone</string>
+    <string name="app_name">Buscador de socios erasmus</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,15 +10,15 @@
     <string name="buscar">Buscar</string>
     <string name="logout">Logout</string>
 
-    <string name="login_titulo">Login. datos del interesado</string>
+    <string name="login_titulo">Datos de login</string>
     <string name="login_email">Email</string>
-    <string name="login_email_field">e-mail</string>
+    <string name="login_email_field">correo</string>
     <string name="login_password">Contraseña</string>
     <string name="login_password_field">password</string>
     <string name="login_aceptar">Aceptar</string>
 
     <string name="registro">Registro</string>
-    <string name="datos_centro_trabajo">Datos del centro de trabajo</string>
+    <string name="datos_centro_trabajo">Centro de trabajo</string>
     <string name="nombre">Nombre:</string>
     <string name="direccion">Dirección:</string>
     <string name="ciudad">Ciudad:</string>
@@ -26,14 +26,14 @@
     <string name="correo_electronico">Correo electrónico:</string>
     <string name="tipo">Tipo:</string>
     <string name="pic">PIC:</string>
-    <string name="datos_persona">Datos de la persona</string>
+    <string name="datos_persona">Persona de contacto</string>
     <string name="apellidos">Apellidos:</string>
     <string name="contrasenha">Contraseña:</string>
     <string name="repetir_contrasenha">Repite contraseña:</string>
     <string name="area">Área:</string>
-    <string name="datos_proyecto">Datos del proyecto (opcional)</string>
-    <string name="condiciones">Acepto las condiciones.</string>
-    <string name="registrarme">REGISTRARME</string>
+    <string name="datos_proyecto">(opcional) Proyecto</string>
+    <string name="condiciones">Acepto los términos y condiciones</string>
+    <string name="registrarme">Registrame</string>
 
     <string name="buscar_titulo">Buscar colaboradores</string>
     <string name="buscar_area">Área</string>

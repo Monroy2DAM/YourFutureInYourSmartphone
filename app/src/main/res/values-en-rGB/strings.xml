@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Your Future In Your Smartphone</string>
+    <string name="app_name">Erasmus partner finder</string>
     <string name="registrarse">Register</string>
     <string name="iniciar_sesion">Login</string>
     <string name="buscar">Search</string>
     <string name="logout">Logout</string>
-    <string name="login_titulo">Login. User information</string>
+    <string name="login_titulo">User information</string>
     <string name="login_email">Email</string>
     <string name="login_email_field">e-mail</string>
     <string name="login_password">Password</string>
@@ -27,7 +27,7 @@
     <string name="area">Area:</string>
     <string name="datos_proyecto">Project information</string>
     <string name="condiciones">I agree terms and conditions</string>
-    <string name="registrarme">REGISTER</string>
+    <string name="registrarme">Register</string>
     <string name="buscar_titulo">Search for colaborators</string>
     <string name="buscar_area">Area</string>
     <string name="buscar_centro">Institution</string>
