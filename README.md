@@ -1,6 +1,6 @@
 # Buscador de socios erasmus
 
-Aplicación ***Android*** que permite buscar y contactar con socios colaboradores para proyectos erasmus solicitada por Orlando Soldan de IES Cristóbal de Monroy.
+Aplicación ***Android*** que permite buscar y contactar con socios colaboradores para proyectos erasmus para Orlando Soldan (IES Cristóbal de Monroy).
 
 <p align="center">
 <img src="doc/1.png" width="200" alt="">
@@ -52,7 +52,7 @@ Aplicación ***Android*** que permite buscar y contactar con socios colaboradore
   * [1. Funcionamiento](#1-funcionamiento-de-la-aplicación)
   * [2. Documentación](#2-documentación)
   * [3. Fallos conocidos](#3-fallos-conocidos)
-  * [4. Colaboradores](#3-Colaboradores)
+  * [4. Colaboradores](#4-colaboradores)
 
 - - - -
 <br>
@@ -68,6 +68,8 @@ Aplicación ***Android*** que permite buscar y contactar con socios colaboradore
 ## 2. Documentación
 
 El proyecto consta de varias pantallas. En cada una de ellas, la clase java correspondiente se comunica con la base de datos mediante las tecnologías de JSON y PHP para operar.
+
+
 
 ## 3. Fallos conocidos
 
